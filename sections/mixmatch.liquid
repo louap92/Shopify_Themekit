@@ -1,0 +1,126 @@
+<div class="slideshow-container" style="margin-top:50px;">
+    {% for collection in collections[section.settings.collection1].products %}
+        <div class="mySlides fade">
+            <div class="price">{{ collection.price | money }}</div>
+            <img src="{{ collection | img_url : 'large' }}" onclick="plusSlides(1)">
+            <div class="text">{{ collection.title }}</div>
+        </div>
+{% endfor %}
+</div>
+
+<div class="slideshow-container" style="margin-bottom:50px;">
+    {% for collection in collections[section.settings.collection2].products %}
+        <div class="mySlides2 fade">
+            <div class="price">{{ collection.price | money }}</div>
+            <img src="{{ collection | img_url : 'large' }}" onclick="plusSlides2(1)">
+            <div class="text">{{ collection.title }}</div>
+        </div>
+{% endfor %}
+</div>
+
+<style>
+* {box-sizing:border-box}
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+.mySlides, .mySlides2 {
+  display: none;
+}
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+.price {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+  text-align:center;
+}
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+</style>
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  slides[slideIndex-1].style.display = "block";
+}
+var slideIndex2 = 1;
+showSlides2(slideIndex2);
+function plusSlides2(n) {
+  showSlides2(slideIndex2 += n);
+}
+function currentSlide2(n) {
+  showSlides2(slideIndex2 = n);
+}
+function showSlides2(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides2");
+  if (n > slides.length) {slideIndex2 = 1}
+  if (n < 1) {slideIndex2 = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  slides[slideIndex2-1].style.display = "block";
+}
+</script>
+
+{% schema %}
+{
+  "name": "Mix & Match",
+  "settings": [
+    {
+    "type": "collection",
+    "id": "collection1",
+    "label": "Selectionner la 1ère collection"
+    },
+    {
+    "type": "collection",
+    "id": "collection2",
+    "label": "Selectionner la 2ème collection"
+    }
+  ]
+  ,
+  "presets": [
+    {
+      "name": "Mix & Match",
+      "category": "IIM"
+    }
+  ]
+}
+{% endschema %}
